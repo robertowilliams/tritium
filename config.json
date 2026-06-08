@@ -1,0 +1,57 @@
+{
+    "DESIGN_NAME": "coral_npu_top",
+    "VERILOG_FILES": [
+        "dir::src/coral_npu_top.v",
+        "dir::src/coral_host_if.v",
+        "dir::src/coral_cam_if.v",
+        "dir::src/coral_ctrl.v",
+        "dir::src/coral_mac_array.v",
+        "dir::src/coral_wgt_buf.v",
+        "dir::src/coral_act_buf.v",
+        "dir::src/coral_spad.v",
+        "dir::src/coral_post_proc.v",
+        "dir::src/coral_trigger.v"
+    ],
+
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 40.0,
+
+    "DESIGN_IS_CORE": true,
+
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 800 800",
+    "FP_CORE_UTIL": 35,
+    "FP_ASPECT_RATIO": 1,
+
+    "PL_TARGET_DENSITY_PCT": 35,
+
+    "FP_PDN_VPITCH": 100,
+    "FP_PDN_HPITCH": 100,
+
+    "SYNTH_STRATEGY": "AREA 0",
+    "SYNTH_MAX_FANOUT": 10,
+
+    "ROUTING_CORES": 4,
+    "GLB_RESIZER_TIMING_OPTIMIZATIONS": true,
+
+    "RST_CELLS_PREFIXES": "sky130_fd_sc_hd__dfrtp",
+
+    "MAX_TRANSITION_CONSTRAINT": 1.5,
+    "MAX_FANOUT_CONSTRAINT": 10,
+
+    "QUIT_ON_TIMING_VIOLATIONS": false,
+    "QUIT_ON_MAGIC_DRC": true,
+    "QUIT_ON_LVS_ERROR": true,
+
+    "meta": {
+        "notes": [
+            "CLOCK_PERIOD=40ns → 25 MHz target clock. Conservative for SKY130.",
+            "DIE_AREA=800x800um. Generous for initial run; expect significant whitespace.",
+            "FP_CORE_UTIL=35%: low to allow routing headroom with 64 MACs + memories.",
+            "SRAM wrappers are behavioral stubs. Replace with OpenRAM macros before tapeout.",
+            "Scale ARRAY_R/ARRAY_C down to 4x4 if synthesis is too slow or area too large.",
+            "Next steps: (1) run synthesis-only to check elaboration, (2) check area report,",
+            "  (3) migrate SRAM stubs to sky130 OpenRAM macros, (4) harden as standalone macro."
+        ]
+    }
+}
